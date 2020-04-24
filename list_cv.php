@@ -1,8 +1,5 @@
 <?php
-/* <TEMPORARY> */
-$link_gs = '';
-$bdd = new PDO("mysql:host=localhost;dbname={$_SERVER['DB_NAME']};charset=utf8", $_SERVER['DB_LOGIN'], $_SERVER['DB_PASSWORD'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-/* </TEMPORARY> */
+require __DIR__ . '/shared.php';
 ?>
 
 <h1>Liste des CV créés sur le site</h1>

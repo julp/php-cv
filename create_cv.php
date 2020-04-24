@@ -1,11 +1,7 @@
 <?php
 session_start();
 
-/* <TEMPORARY> */
-$link_gs = '';
-$_SESSION['id'] = 1; # simule une connexion en tant qu'utilisateur "foo"
-$bdd = new PDO("mysql:host=localhost;dbname={$_SERVER['DB_NAME']};charset=utf8", $_SERVER['DB_LOGIN'], $_SERVER['DB_PASSWORD'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-/* </TEMPORARY> */
+require __DIR__ . '/shared.php';
 
 if (!isset($_SESSION['id'])) {
     header('Location: /');

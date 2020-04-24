@@ -1,3 +1,4 @@
+SetEnv DB_HOST "localhost"
 SetEnv DB_NAME "nom de la bdd"
 SetEnv DB_LOGIN "login"
 SetEnv DB_PASSWORD "mot de passe"

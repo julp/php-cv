@@ -1,10 +1,7 @@
 <?php
 session_start();
 
-/* <TEMPORARY> */
-$link_gs = '';
-$bdd = new PDO("mysql:host=localhost;dbname={$_SERVER['DB_NAME']};charset=utf8", $_SERVER['DB_LOGIN'], $_SERVER['DB_PASSWORD'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-/* </TEMPORARY> */
+require __DIR__ . '/shared.php';
 
 $stmt = $bdd->prepare('SELECT * FROM ' . $link_gs . '_cv WHERE id = ?');
 $stmt->execute([$_GET['id']]);
