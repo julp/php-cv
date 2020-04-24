@@ -3,11 +3,15 @@ session_start();
 
 require __DIR__ . '/shared.php';
 
+if (!isset($_GET['id'])) {
+    # paramètre attendu
+    http_not_found();
+}
+
 $stmt = $bdd->prepare('SELECT * FROM ' . $link_gs . '_cv WHERE id = ?');
 $stmt->execute([$_GET['id']]);
 if (!($cv = $stmt->fetch())) {
-    # ce cv n'existe pas ou plus
-    exit;
+    http_not_found();
 }
 $stmt = $bdd->prepare(<<<EOS
     SELECT *
@@ -19,6 +23,8 @@ $stmt = $bdd->prepare(<<<EOS
 EOS
 );
 $stmt->execute([$_GET['id']]);
+
+require __DIR__ . '/header.php';
 ?>
 
 <h1>CV <?= htmlspecialchars($cv['nom']) ?></h1>

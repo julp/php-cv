@@ -6,8 +6,8 @@ CREATE TABLE _users(
 );
 
 -- <TEST>
-INSERT INTO _users(id, nom) VALUES(1, 'foo');
-INSERT INTO _users(id, nom) VALUES(2, 'bar');
+INSERT INTO _users(id, nom) VALUES(1, 'Jean');
+INSERT INTO _users(id, nom) VALUES(2, 'Marcel');
 -- </TEST>
 
 CREATE TABLE _experiences(
@@ -23,10 +23,11 @@ CREATE TABLE _experiences(
 );
 
 CREATE TABLE _cv(
-    -- TODO: auteur
-    -- TODO: date de création + MàJ
     id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    date_creation DATETIME NOT NULL,
+    date_maj DATETIME NOT NULL,
     nom VARCHAR(200) NOT NULL,
+    user_id INT UNSIGNED NOT NULL REFERENCES _users(id) ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY (id)
 );
 

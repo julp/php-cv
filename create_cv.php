@@ -4,15 +4,16 @@ session_start();
 require __DIR__ . '/shared.php';
 
 if (!isset($_SESSION['id'])) {
-    header('Location: /');
+    header('Location: login.php');
     exit;
 }
 
 if (isset($_POST['submit'])) {
     $bdd->beginTransaction();
-    $stmt = $bdd->prepare('INSERT INTO ' . $link_gs . '_cv(nom) VALUES(:nom)');
+    $stmt = $bdd->prepare('INSERT INTO ' . $link_gs . '_cv(nom, user_id, date_creation, date_maj) VALUES(:nom, :user_id, NOW(), NOW())');
     $stmt->execute([
         'nom' => $_POST['cv']['nom'],
+        'user_id' => $_SESSION['id'],
     ]);
     $stmt = $bdd->prepare('INSERT INTO ' . $link_gs . '_cv_experiences(cv_id, experience_id) VALUES(:cv_id, :experience_id)');
     $stmt->bindValue('cv_id', $bdd->lastInsertId(), PDO::PARAM_INT);
@@ -21,7 +22,12 @@ if (isset($_POST['submit'])) {
         $stmt->execute();
     }
     $bdd->commit();
+
+    header('Location: .');
+    exit;
 }
+
+require __DIR__ . '/header.php';
 
 $stmt = $bdd->prepare('SELECT * FROM ' . $link_gs . '_experiences WHERE user_id = ? ORDER BY df_employeur IS NOT NULL, df_employeur');
 $stmt->execute([$_SESSION['id']]);

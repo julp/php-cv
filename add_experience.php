@@ -4,7 +4,7 @@ session_start();
 require __DIR__ . '/shared.php';
 
 if (!isset($_SESSION['id'])) {
-    header('Location: /');
+    header('Location: login.php');
     exit;
 }
 
@@ -21,8 +21,13 @@ if(isset($_POST['submit'])) {
         $stmt->bindValue('employeur_ville', $subarray['employeur_ville']);
         $stmt->bindValue('employeur', $subarray['employeur']);
         $stmt->execute();
+
+        header('Location: .');
+        exit;
     }
 }
+
+require __DIR__ . '/header.php';
 ?>
 
 <form method="POST">
